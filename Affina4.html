@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Affina - French Pastry & Bakery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      background-color: #f8f5f1;
+      color: #2b3d3b;
+    }
+
+    header {
+      background-color: #3b7d57;
+      color: #fff;
+      text-align: center;
+      padding: 1.2rem 0;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .product-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .product {
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .product img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 1.2rem;
+      text-align: center;
+    }
+
+    .product-info h3 {
+      font-size: 1.3rem;
+      margin: 0.5rem 0;
+      color: #2b3d3b;
+    }
+
+    .product-info p {
+      font-size: 0.95rem;
+      color: #5a5a5a;
+      margin-bottom: 0.5rem;
+    }
+
+    .price {
+      font-weight: 600;
+      color: #3b7d57;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      background-color: #3b7d57;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #2f6045;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #f0ebe4;
+      color: #5a5a5a;
+      font-size: 0.9rem;
+    }
+
+    #cart {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #3b7d57;
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      font-weight: bold;
+    }
+
+    /* Pop-up checkout */
+    .checkout-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .checkout-content {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      max-width: 380px;
+      width: 90%;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .checkout-content h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #3b7d57;
+    }
+
+    .checkout-content input,
+    .checkout-content textarea,
+    .checkout-content select {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+    }
+
+    .checkout-buttons {
+      text-align: center;
+    }
+
+    .checkout-buttons button {
+      margin: 0.4rem;
+    }
+
+    /* 🧈 animasi butter pop up */
+    .butter-popup {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      opacity: 0;
+      animation: butterPop 1.5s ease-in-out;
+    }
+
+    @keyframes butterPop {
+      0% { transform: scale(0.5); opacity: 0; }
+      40% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+
+    .croissant-logo {
+      display: inline-block;
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Affina • French Pastry & Bakery</header>
+
+  <div class="product-container">
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1615485923091-f2a3a5f18cde?auto=format&fit=crop&w=800&q=80" alt="Madeleine">
+      <div class="product-info">
+        <h3>Madeleine</h3>
+        <p>Kue cangkang khas Prancis dengan aroma butter lembut.</p>
+        <div class="price">Rp18.000</div>
+        <button class="btn add-to-cart">Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=800&q=80" alt="Kouign-amann">
+      <div class="product-info">
+        <h3>Kouign-amann</h3>
+        <p>Pastry caramelized dengan lapisan gula renyah dan lembut di dalam.</p>
+        <div class="price">Rp25.000</div>
+        <button class="btn add-to-cart">Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1635830625698-f58e3952eac7?auto=format&fit=crop&w=800&q=80" alt="Tarte Tatin">
+      <div class="product-info">
+        <h3>Tarte Tatin</h3>
+        <p>Tart apel klasik dengan karamel lembut dan tekstur lembut di mulut.</p>
+        <div class="price">Rp30.000</div>
+        <button class="btn add-to-cart">Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80" alt="Croissant">
+      <div class="product-info">
+        <h3>Croissant</h3>
+        <p>Pastry mentega berlapis renyah dengan cita rasa autentik Prancis.</p>
+        <div class="price">Rp22.000</div>
+        <button class="btn add-to-cart">Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1612874742237-6526221588b4?auto=format&fit=crop&w=800&q=80" alt="Baguette">
+      <div class="product-info">
+        <h3>Baguette</h3>
+        <p>Roti panjang khas Prancis, renyah di luar dan lembut di dalam.</p>
+        <div class="price">Rp15.000</div>
+        <button class="btn add-to-cart">Tambah ke Keranjang</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cart">🛒 Lihat Keranjang</div>
+
+  <!-- Modal Checkout -->
+  <div id="checkoutModal" class="checkout-modal">
+    <div class="checkout-content">
+      <h2>Checkout Pesanan</h2>
+      <input type="text" id="nama" placeholder="Nama lengkap" required>
+      <textarea id="alamat" placeholder="Alamat lengkap" rows="3" required></textarea>
+      <textarea id="catatan" placeholder="Catatan (opsional)" rows="2"></textarea>
+
+      <label><strong>Metode Pembayaran <span class="croissant-logo">🥐</span></strong></label>
+      <select id="pembayaran" required>
+        <option value="">-- Pilih Metode Pembayaran --</option>
+        <option value="Transfer Bank">Transfer Bank</option>
+        <option value="COD (Bayar di Tempat)">COD (Bayar di Tempat)</option>
+        <option value="E-Wallet (Dana / Gopay / ShopeePay)">E-Wallet (Dana / Gopay / ShopeePay)</option>
+      </select>
+
+      <div class="checkout-buttons">
+        <button class="btn" id="checkoutBtn">Pesan via WhatsApp</button>
+        <button class="btn" id="closeBtn" style="background:#ccc;color:#333;">Tutup</button>
+      </div>
+      <div class="butter-popup">🧈</div>
+    </div>
+  </div>
+
+  <footer>© 2025 Affina Bakery — Crafted with Love in Every Layer 🥐</footer>
+
+  <script>
+    const cart = [];
+    const addButtons = document.querySelectorAll('.add-to-cart');
+    const cartButton = document.getElementById('cart');
+    const whatsappNumber = "6281312477532";
+    const checkoutModal = document.getElementById('checkoutModal');
+    const closeBtn = document.getElementById('closeBtn');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const butter = document.querySelector('.butter-popup');
+
+    addButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const product = btn.parentElement.querySelector('h3').innerText;
+        const price = btn.parentElement.querySelector('.price').innerText;
+        cart.push({ product, price });
+        alert(`${product} berhasil ditambahkan ke keranjang!`);
+      });
+    });
+
+    cartButton.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert("Keranjang masih kosong!");
+        return;
+      }
+      checkoutModal.style.display = "flex";
+      butter.style.animation = "butterPop 1.5s ease-in-out";
+    });
+
+    closeBtn.addEventListener('click', () => {
+      checkoutModal.style.display = "none";
+    });
+
+    checkoutBtn.addEventListener('click', () => {
+      const nama = document.getElementById('nama').value.trim();
+      const alamat = document.getElementById('alamat').value.trim();
+      const catatan = document.getElementById('catatan').value.trim();
+      const pembayaran = document.getElementById('pembayaran').value;
+
+      if (!nama || !alamat || !pembayaran) {
+        alert("Harap isi semua data dengan lengkap!");
+        return;
+      }
+
+      let message = `Halo Affina Bakery! Saya ingin memesan:\n\n`;
+      cart.forEach(item => {
+        message += `- ${item.product} (${item.price})\n`;
+      });
+
+      const total = cart.reduce((sum, item) => sum + parseInt(item.price.replace(/\D/g,'')), 0);
+      message += `\nTotal: Rp${total.toLocaleString("id-ID")}\n\n`;
+      message += `Nama: ${nama}\nAlamat: ${alamat}\n`;
+      if (catatan) message += `Catatan: ${catatan}\n`;
+      message += `Metode Pembayaran: ${pembayaran}\n`;
+
+      const encoded = encodeURIComponent(message);
+      const waLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encoded}`;
+      window.open(waLink, "_blank");
+    });
+  </script>
+</body>
+</html>
